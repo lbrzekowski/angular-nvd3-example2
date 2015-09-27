@@ -4,7 +4,7 @@ myNvd3.controller('myCtrl', function ($scope) {
   var vm = this;
 
   vm.charts = {
-    bar1: {}, bar2: {}
+    bar1: {}, bar2: {}, pie1: {}
   };
 
   vm.charts.bar1.options = {
@@ -88,8 +88,20 @@ myNvd3.controller('myCtrl', function ($scope) {
       },
       discretebar: {
         dispatch: {
-          elementClick: function(t, u){ console.log(t); console.log(u);}
+          elementClick: function (t, u) {
+            console.log(t);
+            console.log(u);
+          }
         }
+      }
+    },
+    title: {
+      enable: true,
+      text: "Interest",
+      className: "h4",
+      css: {
+        width: "250",
+        textAlign: "center"
       }
     }
   };
@@ -108,4 +120,44 @@ myNvd3.controller('myCtrl', function ($scope) {
     ]
   }];
 
+  vm.charts.pie1.options = {
+    chart: {
+      type: 'pieChart',
+      height: 250,
+      x: function (d) {
+        return d.key;
+      },
+      y: function (d) {
+        return d.y;
+      },
+      showLabels: true,
+      transitionDuration: 500,
+      labelThreshold: 0.01,
+      legend: {
+        margin: {
+          top: 5,
+          right: 35,
+          bottom: 5,
+          left: 0
+        }
+      }
+    },
+    title: {
+      enable: true,
+      text: "Gender",
+      className: "h4",
+      css: {
+        width: "100%",
+        textAlign: "center"
+      }
+    }
+  };
+
+  vm.charts.pie1.data = [
+    {"key": "male", "y": 47},
+    {"key": "female", "y": 43},
+    {"key": "unknown", "y": 10}
+  ];
+
+  //d3.select(".nv-legendWrap").attr("transform", "translate(100,100)");
 });
